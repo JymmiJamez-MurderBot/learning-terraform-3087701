@@ -81,15 +81,6 @@ tags = {
   }
  }
 
-# module "alb-http_listner" {
-    source              = "deepak7093/alb-http-listener/aws"
-    version = "1.0.1"
-    
-    alb_arn             = "module.alb.blog-alb.ar"
-    port                = "80"
-    target_group_arn    = "aws_instance.blogT.arn"
-  }
-
 
 module "blog_security-group" {
   source              = "terraform-aws-modules/security-group/aws"
