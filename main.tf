@@ -44,37 +44,50 @@ resource "aws_instance" "blog" {
     Name = "Learning Terraform"
   }
 }
- 
-module "alb" {
-  source = "terraform-aws-modules/alb/aws"
 
-  name             = "blog-alb"
-  vpc_id           = module.blog_vpc.vpc_id
-  subnets          = module.blog_vpc.public_subnets
-  security_groups  = [module.blog_security-group.security_group_id]
-  
-  target_groups = {
-    instance = {
-      name_prefix      = "blog-target"
-      protocol         = "HTTP"
-      port             = 80
-      target_type      = "instance"
-      targets_id       = aws_instance.blog.id
-   }
-  }
+resource "aws_alb" "blog_alb" {
+  name                  = "blog-alb"
+  load_balancer_type    = "application"
+  subnets               = [module.blog_vpc.public_subnets]
+  vpc_id                = [module.blog_vpc.vpc_id]
+  subnets               = [module.blog_vpc.public_subnets]
+  security_groups       = [module.blog_security-group.security_group_id]
+}
 
-  tags = {
+# Associate a target group with the ALB's listener
+resource "aws_alb_target_group_attachment" "blog_listener" {
+  target_group_arn      = aws_lb_target_group.blog_tg.arn
+  target_id             = aws_instance.blog.id
+  port                  = 80
+}
+
+# Define a listener
+resource "aws_lb_listener" "blog_listener" {
+  load_balancer_arn    = aws_alb.blog_alb.arn
+  port                 = "80"
+  protocol             = "HTTP"
+
+}
+
+# Define a target group
+resource "aws_lb_target_group" "blog_tg" {
+  name                = "blog-tg"
+  port                = 80
+  protocol            = "HTTP"
+  vpc_id              = [module.blog_vpc.vpc_id]
+
+tags = {
     Environment = "dev"
   }
  }
 
-module "alb-http_listner" {
+# module "alb-http_listner" {
     source              = "deepak7093/alb-http-listener/aws"
     version = "1.0.1"
     
-    alb_arn             = "module.alb.blog-alb.alb_arn"
+    alb_arn             = "module.alb.blog-alb.ar"
     port                = "80"
-    target_group_arn    = "module.blog-target.target_group_arn"
+    target_group_arn    = "aws_instance.blogT.arn"
   }
 
 
