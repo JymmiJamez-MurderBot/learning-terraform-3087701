@@ -44,7 +44,35 @@ resource "aws_instance" "blog" {
     Name = "Learning Terraform"
   }
 }
+ 
+module "alb" {
+  source = "terraform-aws-modules/alb/aws"
 
+  name            = "blog-alb"
+  vpc_id          = module.blog_vpc.vpc_id
+  subnets         = module.blog_vpc.public_subnets
+  security_group  = module.blog_security-group.security_group_id
+
+target_groups = {
+  {
+  name_prefix      = "blog-"
+  protocol         = "HTTP"
+  port             = 80
+  target_type      = "instance"
+  target_id        = aws_instance.blog.id
+    }
+  }
+  
+listeners = {
+    {
+      port     = 80
+      protocol = "HTTP"
+      }
+    }
+tags = {
+    Environment = "dev"
+  }
+ }
 
 module "blog_security-group" {
   source  = "terraform-aws-modules/security-group/aws"
