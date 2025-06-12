@@ -49,17 +49,18 @@ module "alb" {
   source = "terraform-aws-modules/alb/aws"
 
   name            = "blog-alb"
-  vpc_id          = module.blog_vpc.vpc_id
-  subnets         = module.blog_vpc.public_subnets
-  security_group  = module.blog_security-group.security_group_id
+  vpc_id          = [module.blog_vpc.vpc_id]
+  subnets         = [module.blog_vpc.public_subnets]
+  security_group  = [module.blog_security-group.security_group_id]
 
 target_groups = {
-  {
+   {
   name_prefix      = "blog-"
   protocol         = "HTTP"
   port             = 80
   target_type      = "instance"
-  targets_id       = "aws_instance.blog.id"
+  targets_id       = [aws_instance.blog.id]
+  
     }
   }
   
