@@ -52,7 +52,14 @@ module "alb" {
   vpc_id           = module.blog_vpc.vpc_id
   subnets          = module.blog_vpc.public_subnets
   security_groups  = [module.blog_security-group.security_group_id]
-
+  
+  module "http_listner" {
+    source = "custom_alb_listener_rule_http"
+    alb_arn = ""
+    port = "80"
+    target_group_arn = ""
+  }
+  
   target_groups = {
     instance = {
       name_prefix      = "blog-"
@@ -62,13 +69,7 @@ module "alb" {
       targets_id       = aws_instance.blog.id
    }
   }
-  
-  listeners = {
-    ex-http = {
-      port     = 80
-      protocol = "HTTP"
-     }
-    }
+
   tags = {
     Environment = "dev"
   }
