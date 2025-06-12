@@ -75,7 +75,7 @@ resource "aws_lb_target_group" "blog_tg" {
  }
 
 resource "aws_lb_listener" "blog_listener" {
-  load_balancer_arn    = aws_alb.blog_alb.arn
+  load_balancer_arn    = aws_lb.blog_alb.arn
   port                 = "80"
   protocol             = "HTTP"
 
