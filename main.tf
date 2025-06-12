@@ -74,7 +74,7 @@ resource "aws_lb_listener" "blog_listener" {
 
   default_action {
     type             = "forward"
-    target_group_arn = aws_lb_target_group.blog_listener.arn
+    target_group_arn = aws_lb_target_group.blog_tg.arn
   }
 }
 
