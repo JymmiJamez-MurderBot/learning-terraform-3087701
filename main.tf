@@ -68,8 +68,10 @@ module "alb" {
   }
  }
 
-module "http_listner" {
-    source              = "custom_alb_listener_rule_http"
+module "alb-http_listner" {
+    source              = "deepak7093/alb-http-listener/aws"
+    ingress_cidr_blocks = "1.0.1"
+    
     alb_arn             = "module.alb.blog-alb.alb_arn"
     port                = "80"
     target_group_arn    = "module.blog-target.target_group_arn"
