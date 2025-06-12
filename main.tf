@@ -53,16 +53,9 @@ module "alb" {
   subnets          = module.blog_vpc.public_subnets
   security_groups  = [module.blog_security-group.security_group_id]
   
-  module "http_listner" {
-    source = "custom_alb_listener_rule_http"
-    alb_arn = ""
-    port = "80"
-    target_group_arn = ""
-  }
-  
   target_groups = {
     instance = {
-      name_prefix      = "blog-"
+      name_prefix      = "blog-target"
       protocol         = "HTTP"
       port             = 80
       target_type      = "instance"
@@ -74,6 +67,14 @@ module "alb" {
     Environment = "dev"
   }
  }
+
+module "http_listner" {
+    source              = "custom_alb_listener_rule_http"
+    alb_arn             = "module.alb.blog-alb.alb_arn"
+    port                = "80"
+    target_group_arn    = "module.blog-target.target_group_arn"
+  }
+
 
 module "blog_security-group" {
   source              = "terraform-aws-modules/security-group/aws"
