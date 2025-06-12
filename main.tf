@@ -49,7 +49,7 @@ resource "aws_alb" "blog_alb" {
   name                  = "blog-alb"
   load_balancer_type    = "application"
   subnets               = [module.blog_vpc.public_subnets]
-  vpc_id                = [module.blog_vpc.vpc_id]
+  vpc_id                = module.blog_vpc.vpc_id
   security_groups       = [module.blog_security-group.security_group_id]
 }
 
@@ -73,8 +73,8 @@ resource "aws_lb_target_group" "blog_tg" {
   name                = "blog-tg"
   port                = 80
   protocol            = "HTTP"
-  vpc_id              = [module.blog_vpc.vpc_id]
-
+  vpc_id              = module.blog_vpc.vpc_id
+  
 tags = {
     Environment = "dev"
   }
