@@ -54,14 +54,13 @@ module "alb" {
   security_group  = [module.blog_security-group.security_group_id]
 
 target_groups = {
-  blog-lb {
-  name_prefix      = "blog-"
-  protocol         = "HTTP"
-  port             = 80
-  target_type      = "instance"
-  targets_id       = [aws_instance.blog.id]
-  
-    }
+  ex-instance = {
+    name_prefix      = "blog-"
+    protocol         = "HTTP"
+    port             = 80
+    target_type      = "instance"
+    targets_id       = [aws_instance.blog.id]
+   }
   }
   
 listeners = {
