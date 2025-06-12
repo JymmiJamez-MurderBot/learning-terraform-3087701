@@ -59,7 +59,7 @@ target_groups = {
   protocol         = "HTTP"
   port             = 80
   target_type      = "instance"
-  target_id        = aws_instance.blog.id
+  targets_id       = aws_instance.blog.id
     }
   }
   
@@ -67,7 +67,7 @@ listeners = {
     {
       port     = 80
       protocol = "HTTP"
-      }
+     }
     }
 tags = {
     Environment = "dev"
