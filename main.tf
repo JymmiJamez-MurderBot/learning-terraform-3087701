@@ -49,7 +49,6 @@ resource "aws_alb" "blog_alb" {
   name                  = "blog-alb"
   load_balancer_type    = "application"
   subnets               = [module.blog_vpc.public_subnets]
-  vpc_id                = module.blog_vpc.vpc_id
   security_groups       = [module.blog_security-group.security_group_id]
 }
 
