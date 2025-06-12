@@ -59,7 +59,7 @@ target_groups = {
   protocol         = "HTTP"
   port             = 80
   target_type      = "instance"
-  targets_id       = aws_instance.blog.id
+  targets_id       = "aws_instance.blog.id"
     }
   }
   
