@@ -64,7 +64,7 @@ target_groups = {
   }
   
 listeners = {
-    {
+  ex-http   {
       port     = 80
       protocol = "HTTP"
      }
