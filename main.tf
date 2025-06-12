@@ -33,7 +33,7 @@ module "blog_vpc" {
   }
 }
 
-module "autoscaling" "blog" {
+module "autoscaling" {
   source        = "terraform-aws-modules/autoscaling/aws"
   version       = "8.3.0"
 
@@ -88,7 +88,7 @@ resource "aws_lb_listener" "blog_listener" {
 # Associate a target group with the ALB's listener
 resource "aws_alb_target_group_attachment" "blog_tg_attach" {
   target_group_arn      = aws_lb_target_group.blog_tg.arn
-  target_id             = aws_autoscaling_group.blog.arn
+  target_id             = module.autoscaling.aws_autoscaling_group
   port                  = aws_lb_listener.blog_listener.port
 }
 
