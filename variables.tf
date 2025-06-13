@@ -5,8 +5,7 @@ variable "instance_type" {
 
 variable "ami_filter" {
   description = "Name filter and owner for AMI
-  most_recent = true
-
+  
   type = object {{
     name    = string
     owner   = string
