@@ -30,7 +30,7 @@ module "blog_vpc" {
 }
 
 module "alb" {
-  source    = "terraform-aws-modules/alb/aws
+  source    = "terraform-aws-modules/alb/aws"
   version   = "~> 6.0"
 
   name      = "blog_alb"
