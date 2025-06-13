@@ -4,7 +4,7 @@ variable "instance_type" {
 }
 
 variable "ami_filter" {
-  description = "Name filter and owner for AMI
+  description = "Name filter and owner for AMI"
   
   type = object {{
     name    = string
