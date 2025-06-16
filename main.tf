@@ -23,7 +23,7 @@ module "blog_vpc" {
   cidr = "10.0.100.0/22"
 
   azs             = ["us-west-2a", "us-west-2b", "us-west-2c"]
-  public_subnets  = ["{var.environment.network_prefix}.100.0/24", "{var.environment.network_prefix}.101.0/24", "{var.environment.network_prefix}.102.0/24"]
+  public_subnets  = ["${var.environment.network_prefix}.100.0/24", "${var.environment.network_prefix}.101.0/24", "${var.environment.network_prefix}.102.0/24"]
 
   tags = {
     Terraform = "true"
@@ -45,7 +45,7 @@ module "blog_alb" {
 
   target_groups = [
     {
-      name_prefix       = "{var.environment.name}-"
+      name_prefix       = "${var.environment.name}-"
       backend_protocol  = "HTTP"
       backend_port      = 80
       target_type       = "instance"
