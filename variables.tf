@@ -6,7 +6,7 @@ variable "instance_type" {
 variable "ami_filter" {
   description = "Name filter and owner for AMI"
   type = list(object({
-    name = string
+    name  = string
     owner = string
   }))
   default = [

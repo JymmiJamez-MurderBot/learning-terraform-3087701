@@ -3,7 +3,7 @@ data "aws_ami" "app_ami" {
 
   filter {
     name   = "name"
-    values = var.ami_filter[0].name
+    values = {var.ami_filter[0].name}
   }
 
   filter {
@@ -11,7 +11,7 @@ data "aws_ami" "app_ami" {
     values = ["hvm"]
   }
 
-  owners = var.ami_filter[1].owner
+  owners = {var.ami_filter[1].owner}
 }
 
 module "blog_vpc" {
