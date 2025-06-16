@@ -5,23 +5,24 @@ variable "instance_type" {
 
 variable "ami_filter" {
   description = "Name filter and owner for AMI"
-  type = list(string)({
+  type = list(string({
     name    = string
     owner   = string
-  })
-  default =   
+  }))
+  default =   [
    {
     name        = "bitnami-tomcat-*-x86_64-hvm-ebs-nami"
     owner       = "979382823631"
     }
-   }
+   ]
+ }
 
 variable "environment" {
   description = "Development Environment"
-  type = list(string)({
+  type = list(string({
     name           = string
     network_prefix = string
-  })
+  }))
   default = [
     {
     name            = "dev"
