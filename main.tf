@@ -3,15 +3,18 @@ data "aws_ami" "app_ami" {
 
   filter {
     name   = "name"
-    values = ["${var.ami_filter[0].name}]
+    values = var.ami_filter.name
   }
 
   filter {
     name   = "virtualization-type"
     values = ["hvm"]
   }
-
-  owners = {var.ami_filter[1].owner}
+   
+   filter {
+     owners = var.ami_filter.owner
+   }
+   
 }
 
 module "blog_vpc" {
@@ -21,7 +24,7 @@ module "blog_vpc" {
   cidr = "${var.environment.network_prefix[0]}"
 
   azs             = ["us-west-2a", "us-west-2b", "us-west-2c"]
-  public_subnets  = ["${var.environment.network_prefix[0]}.101.0/24", "${var.environment.network_prefix[0]}.102.0/24", "${var.environment.network_prefix}.103.0/24"]
+  public_subnets  = ["{var.environment.network_prefix[0]}.101.0/24", "${var.environment.network_prefix[0]}.102.0/24", "${var.environment.network_prefix}.103.0/24"]
 
   tags = {
     Terraform = "true"
@@ -33,7 +36,7 @@ module "blog_alb" {
   source    = "terraform-aws-modules/alb/aws"
   version   = "~> 6.0"
 
-  name      = "${var.environment.name}-blog-alb"
+  name      = "{var.environment.name}-blog-alb"
 
   load_balancer_type  = "application"
 
@@ -43,7 +46,7 @@ module "blog_alb" {
 
   target_groups = [
     {
-      name_prefix       = "${var.environment.name}-"
+      name_prefix       = "{var.environment.name}-"
       backend_protocol  = "HTTP"
       backend_port      = 80
       target_type       = "instance"
