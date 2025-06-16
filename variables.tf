@@ -21,7 +21,7 @@ variable "environment" {
   description = "Development Environment"
   type = list(object({
     name = string
-    owner = string
+    network_prefix = string
   }))
   default = [
     {
