@@ -3,7 +3,7 @@ data "aws_ami" "app_ami" {
 
   filter {
     name   = "name"
-    values = "var.ami_filter.name"
+    values = var.ami_filter.name
   }
 
   filter {
@@ -11,17 +11,17 @@ data "aws_ami" "app_ami" {
     values = ["hvm"]
   }
 
-  owners = "var.ami_filter.owner"
+  owners = var.ami_filter.owner
 }
 
 module "blog_vpc" {
   source = "terraform-aws-modules/vpc/aws"
 
-  name = "var.environment[0].name"
+  name = "var.environment.name"
   cidr = "${var.environment.network_prefix}"
 
   azs             = ["us-west-2a", "us-west-2b", "us-west-2c"]
-  public_subnets  = ["${var.environment[0].network_prefix}.101.0/24", "${var.environment[0].network_prefix}}.102.0/24", "${var.environment.network_prefix}.103.0/24"]
+  public_subnets  = ["${var.environment.network_prefix}.101.0/24", "${var.environment.network_prefix}}.102.0/24", "${var.environment.network_prefix}.103.0/24"]
 
   tags = {
     Terraform = "true"
