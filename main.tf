@@ -11,7 +11,7 @@ data "aws_ami" "app_ami" {
     values = ["hvm"]
   }
 
-  owners = var.ami_filter.owner[0]
+  owners = var.ami_filter.owner[1]
 }
 
 module "blog_vpc" {
