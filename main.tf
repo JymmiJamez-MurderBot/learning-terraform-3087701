@@ -3,7 +3,7 @@ data "aws_ami" "app_ami" {
 
   filter {
     name   = "name"
-    values = {var.ami_filter[0].name}
+    values = ["${var.ami_filter[0].name}]
   }
 
   filter {
