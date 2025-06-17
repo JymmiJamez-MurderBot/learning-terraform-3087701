@@ -14,5 +14,5 @@ provider "aws" {
 
 # Create a VPC
 resource "aws_vpc" "dev_vpc" {
-  cidr_block = "10.100.0.0/22"
+  cidr_block = "10.1.100.0/22"
 }
