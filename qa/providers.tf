@@ -12,7 +12,3 @@ provider "aws" {
   region = "us-west-2"
 }
 
-# Create a VPC
-resource "aws_vpc" "qa_vpc" {
-  cidr_block = "10.1.104.0/22"
-}
